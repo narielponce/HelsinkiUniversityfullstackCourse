@@ -11,15 +11,20 @@ sequenceDiagram
     Usuario ->> Navegador: Llena el formulario y presiona "Enviar"
     Note right of Usuario: El navegador prepara una solicitud HTTP POST
     
-    Navegador ->> Servidor: Envía la solicitud HTTP POST con los datos del formulario
-    Note right of Navegador: La solicitud incluye la URL, cabeceras y el cuerpo con los datos del formulario
+    Navegador ->> Servidor: Envía un HTTP POST a https://studies.cs.helsinki.fi/exampleapp/new_note con los datos cargados en el Form
+    Servidor -->> Navegador: Responde con código de estado 302 (Redirección de URL a /exampleapp/notes)
     
     Servidor ->> Servidor: Procesa los datos del formulario
-    Note right of Servidor: Validación, almacenamiento en base de datos, etc.
+
+    Navegador ->> Servidor: Envía un HTTP GET a https://studies.cs.helsinki.fi/exampleapp/notes
+    Servidor -->> Navegador: Responde con código HTML
+
+    Navegador ->> Servidor: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    Servidor -->> Navegador: El archivo CSS
     
-    Servidor ->> Navegador: Envía la respuesta HTTP
-    Note right of Servidor: La respuesta incluye el código de estado y el cuerpo de la respuesta
-    
+    Navegador ->> Servidor: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    Servidor -->> Navegador: El archivo JavaScript
+ 
     Navegador ->> Usuario: Muestra la respuesta al usuario
-    Note right of Navegador: Puede ser una página de confirmación, un mensaje de éxito, etc.
+    Note right of Usuario: Confirmación, mensaje de éxito, etc.
 ```
