@@ -5,9 +5,14 @@ sequenceDiagram
     participant browser
     participant server
 
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note (note=qwerty)
+    activate server
+    server-->>browser: Respuesta HTML con código de estado 302 (redireccion)
+    deactivate server
+
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
-    server-->>browser: HTML document
+    server-->>browser: Se vuelve a cargar la dirección del encabezado
     deactivate server
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
